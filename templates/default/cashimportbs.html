@@ -1,0 +1,105 @@
+{include file="header.html"}
+<!--// $Id$ //-->
+<H1>{$layout.pagetitle} z Banku Spółdzielczego</H1>
+<SCRIPT type="text/javascript">
+<!--
+	function Delete()
+	{
+		document.cashimport.action += '&action=delete';
+		document.cashimport.submit();
+	}
+
+	function Save()
+	{
+		document.cashimport.action += '&action=save';
+		document.cashimport.submit();
+	}
+//-->
+</SCRIPT>
+{if $layout.stat}
+<TABLE width="100%" CELLPADDING="3"  class="lmsbox">
+	<THEAD>
+		<TR>
+			<TD class="fall" width="100%" colspan="2">
+				<B>Statystyki</B>
+			</TD>
+		</TR>
+	</THEAD>
+	<THBODY>
+	<TR>
+		<TD class="fleft" width="1%" NOWRAP>
+			<B>Wszystkich:</B>
+		</TD>
+		<TD class="fright" width="99%" NOWRAP>
+			{$layout.stat.all}
+		</TD>
+	</TR>
+	
+	<TR >
+		<TD class="fleft" width="1%" NOWRAP>
+			<B>Zaimportowano:</B>
+		</TD>
+		<TD class="fright" width="99%" NOWRAP>
+			{$layout.stat.add}
+		</TD>
+	</TR>	
+	<TR class="LIGHT">
+		<TD class="fleft" width="1%" NOWRAP>
+			<B>Błędów:</B>
+		</TD>
+		<TD class="fright" width="99%" NOWRAP>
+			{$layout.stat.error}
+		</TD>
+	</TR>	
+	
+	<TR class="LIGHT">
+		<TD class="fbottomu" colspan="2" width="100%" align="right" nowrap>
+			
+		</TD>
+	</TR>
+	</THBODY>
+</TABLE>
+{/if}
+<P><FORM name="parser" enctype="multipart/form-data" method="post" action="?m=cashimportparserbs">
+<INPUT type="submit" class="hiddenbtn">
+<TABLE class="lmsbox">
+    <THEAD>
+	<TR>
+		<TD width="100%" colspan="2">
+			<B>{trans("Import from file")}:</B>
+		</TD>
+	</TR>
+    </THEAD>
+    <TBODY>
+	<TR>
+		<TD width="1%" NOWRAP>
+			<IMG src="img/attach.gif" alt="">
+			<B>{trans("Import file:")} </B>
+		</TD>
+		<TD width="99%" NOWRAP>
+			<INPUT name="file" type="file" size="70" {tip text="Enter path to file or click 'Browse' button" trigger="file"}>
+		</TD>
+	</TR>
+	<TR>
+		<TD width="1%" NOWRAP>
+			<IMG src="img/isource.gif" alt="">
+			<B>{trans("Source:")} </B>
+		</TD>
+		<TD width="99%" NOWRAP>
+			<SELECT name="source" {tip text="Select import source (optional)" trigger="source"}>
+			<OPTION value="0">{trans("- auto -")}</OPTION> 
+			{foreach from=$sourcelist item=item}
+			<OPTION value="{$item.id}">{$item.name}</OPTION>
+			{/foreach}
+			</SELECT>
+		</TD>
+	</TR>
+	<TR>
+		<TD colspan="2" width="100%" align="right" nowrap>
+			<A href="javascript: document.parser.submit();">{trans("Submit")} <IMG src="img/save.gif" alt=""></A>
+		</TD>
+	</TR>
+    </TBODY>
+</TABLE>
+</FORM></P>
+{include file="footer.html"}
